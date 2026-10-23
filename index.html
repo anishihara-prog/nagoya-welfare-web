@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- ① 検索でクリックされやすいタイトル（重要なキーワードを先頭に配置） -->
+<title>名古屋市 福祉サービス・障害福祉ガイド | 相談窓口と手続き総合案内</title>
+
+<!-- ② Google検索結果のタイトルの下に表示される説明文（100〜120文字程度） -->
+<meta name="description" content="名古屋市内の福祉サービスや障害福祉、介護保険の手続き、相談窓口の情報をまとめた検索ガイドです。各区役所や地域の支援制度、申請手順をわかりやすくご案内します。">
+
+<!-- ③ 検索キーワード（補足） -->
+<meta name="keywords" content="名古屋市,福祉サービス,障害福祉,介護保険,区役所,相談窓口,手帳">
+
+<!-- ④ インデックス登録許可＆正規URL設定 -->
+<meta name="robots" content="index, follow">
+
+<!-- ⑤ SNSやLINEで共有された際の見栄え設定（OGPタグ） -->
+<meta property="og:title" content="名古屋市 福祉サービス・障害福祉ガイド">
+<meta property="og:description" content="名古屋市内の福祉サービスや障害福祉、介護保険の手続き、相談窓口の情報をまとめた検索ガイド。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+
+<!-- 外部フォント・ライブラリ -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+  :root {
+    --bg: #f0ede6;
+    --card-bg: #ffffff;
+    --text: #2d2d2d;
+    --text-light: #666;
+    --accent-green: #2d6a5a;
+    --accent-green-light: #e8f0ee;
+    --accent-pink: #e8a0a0;
+    --accent-sand: #c9a87a;
+    --border: #e0ddd6;
+    --tag-bg: #f5f3ef;
+    --font-sans: 'Noto Sans JP', sans-serif;
+    --font-serif: 'Noto Serif JP', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.7;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* ヘッダー */
+  .site-header {
+    padding: 16px 24px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  /* ヒーロー */
+  .hero {
+    padding: 32px 24px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-dots {
+    position: absolute;
+    top: 20px; left: 0; right: 0;
+    height: 40px;
+    pointer-events: none;
+  }
+  .hero h1 {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero p {
+    font-size: 13px;
+    color: var(--text-light);
+    max-width: 320px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  /* タブ */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--card-bg);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .tab.active {
+    background: var(--card-bg);
+    border-color: var(--text);
+  }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot-gray { background: #aaa; }
+  .dot-red { background: #c0504d; }
+
+  /* PWAバナー */
+  .pwa-banner {
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .pwa-banner span { color: var(--text-light); }
+  .pwa-icon { font-size: 14px; margin-right: 8px; }
+
+  /* セクション */
+  .section {
+    padding: 32px 16px;
+  }
+  .section-label {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .section-desc {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    max-width: 340px;
+  }
+  .section-desc em {
+    color: var(--accent-green);
+    font-style: normal;
+    text-decoration: underline;
+  }
+
+  /* カード */
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+  }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 12px;
+  }
+  .card-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .icon-pink { background: #fce8e8; }
+  .icon-green { background: var(--accent-green-light); }
+  .icon-sand { background: #f5efe6; }
+  .icon-map { background: #e8f0ee; }
+
+  .card-meta { flex: 1; }
+  .card-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .card-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge-green { background: var(--accent-green-light); color: var(--accent-green); }
+  .badge-gray { background: #f0f0f0; color: #666; }
+  .badge-map { background: #e8f4e8; color: #2d6a2d; }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  .card-link {
+    font-size: 11px;
+    color: var(--accent-green);
+    text-decoration: underline;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  /* タグ */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--tag-bg);
+    color: var(--text-light);
+    border: 1px solid var(--border);
+  }
+
+  /* カード下部 */
+  .card-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-green { background: var(--accent-green); color: #fff; }
+  .btn-dark { background: #2d2d2d; color: #fff; }
+
+  /* QRコード */
+  .qr-area {
+    text-align: center;
+  }
+  .qr-box {
+    width: 135px; height: 135px;
+    background: #f8f8f8;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 4px;
+    overflow: hidden;
+  }
+  .qr-box img { width: 120px; height: 120px; }
+  .qr-label {
+    font-size: 10px;
+    color: var(--text-light);
+  }
+
+  /* フッター */
+  footer {
+    padding: 24px 16px;
+    font-size: 11px;
+    color: var(--text-light);
+    border-top: 1px solid var(--border);
+    line-height: 1.8;
+  }
+
+  /* 装飾ドット */
+  .deco-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .deco-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .deco-line {
+    flex: 1;
+    height: 1.5px;
+    background: repeating-linear-gradient(90deg, var(--border) 0, var(--border) 4px, transparent 4px, transparent 8px);
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 26px; }
+    .section-title { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">NAGOYA WELFARE INFO GUIDE</header>
+
+<!-- ヒーロー -->
+<section class="hero">
+  <!-- 装飾点線 -->
+  <svg class="hero-dots" viewBox="0 0 400 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="10" cy="20" r="6" fill="#7aab9a" opacity="0.6"/>
+    <line x1="20" y1="20" x2="380" y2="20" stroke="#aac8be" stroke-width="1.5" stroke-dasharray="4 6"/>
+    <circle cx="160" cy="20" r="5" fill="#c9a87a" opacity="0.7"/>
+    <circle cx="390" cy="20" r="7" fill="#e8a0a0" opacity="0.5"/>
+  </svg>
+
+  <h1>福祉の情報に、<br>迷わずたどり着け<br>るように。</h1>
+  <p>名古屋市の福祉サービスや支援制度に、もっと迷わずたどり着けるように。ご自身で検索する、相談員が調べる——それぞれの立場に合わせてつくったアプリをまとめました。</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="scrollToSection('residents')"><span class="dot dot-gray"></span>住民・ご家族の方向け</button>
+    <button class="tab" onclick="scrollToSection('consultants')"><span class="dot dot-red"></span>相談支援に携わる方向け</button>
+  </div>
+
+  <div class="pwa-banner" onclick="togglePwa()">
+    <div><span class="pwa-icon">📱</span>このページをアプリとして保存する方法（Google Chrome）</div>
+    <span id="pwa-toggle">＋</span>
+  </div>
+  <div id="pwa-content" style="display:none; background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:18px 20px; margin-bottom:8px; font-size:12px; line-height:1.9;">
+    <div style="display:flex; gap:24px; flex-wrap:wrap;">
+      <div style="flex:1; min-width:160px;">
+        <div style="font-weight:700; margin-bottom:8px;">スマートフォン（Android / Chrome）</div>
+        <ol style="padding-left:16px; color:var(--text-light);">
+          <li>画面右上の「︙」メニューをタップ</li>
+          <li>「アプリをインストール」または「ホーム画面に追加」をタップ</li>
+          <li>確認画面で「インストール」または「ショートカット」をタップ</li>
+        </ol>
+      </div>
+      <div style="flex:1; min-width:160px;">
+        <div style="font-weight:700; margin-bottom:8px;">パソコン（Chrome）</div>
+        <ol style="padding-left:16px; color:var(--text-light);">
+          <li>画面右上の「︙」メニューをクリック</li>
+          <li>「キャスト、保存、共有」をクリック</li>
+          <li>「ショートカットを作成」をクリック</li>
+          <li>「作成」をクリック</li>
+          <li>デスクトップにアプリが作成される</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+    function togglePwa() {
+      const content = document.getElementById('pwa-content');
+      const toggle = document.getElementById('pwa-toggle');
+      if (content.style.display === 'none') {
+        content.style.display = 'block';
+        toggle.textContent = '－';
+      } else {
+        content.style.display = 'none';
+        toggle.textContent = '＋';
+      }
+    }
+  </script>
+</section>
+
+<!-- セクション01 住民向け -->
+<section class="section" id="residents">
+  <div class="section-label">01 住民・ご家族の方向け</div>
+  <h2 class="section-title">条件に合わせて探す</h2>
+  <p class="section-desc">お住まいの地域や困りごとから、必要な福祉サービスをご自身で調べたいときに使えるアプリです。</p>
+
+  <!-- 名古屋市サービス検索 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-pink">🔍</div>
+      <div class="card-meta">
+        <div class="card-title-row">
+          <span class="card-title">名古屋市サービス検索</span>
+          <span class="card-badge badge-green">市民向け検索ツール</span>
+        </div>
+      </div>
+    </div>
+    <p class="card-desc">お住まいの区・年齢・世帯構成・困りごとなどを入力すると、名古屋市の該当する制度やサービスを絞り込んで検索できます。子育て、介護、障害福祉、住まい、お金など幅広いテーマに対応しています。</p>
+    <div class="card-footer">
+      <a href="https://nagoyaapp.expo.app/" target="_blank" class="btn btn-green">アプリを使ってみる</a>
+      <div class="qr-area">
+        <div class="qr-box" id="qr1"></div>
+        <div class="qr-label">QRで開く</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- セクション02 相談員向け -->
+<section class="section" id="consultants" style="padding-top:0;">
+  <div class="section-label">02 相談支援に携わる方向け</div>
+  <h2 class="section-title">相談員のための検索ツール・地図</h2>
+  <p class="section-desc">制度や手続き、施設情報が多岐にわたる障害福祉の現場で、必要な情報や施設に<em>すばやくたどり着く</em>ためのツールです。</p>
+
+  <!-- 障害福祉支援ナビ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-pink">📋</div>
+      <div class="card-meta">
+        <div class="card-title-row">
+          <span class="card-title">障害福祉支援ナビ なごや</span>
+          <span class="card-badge badge-green">相談員向け検索ツール</span>
+        </div>
+      </div>
+    </div>
+    <p class="card-desc">名古屋市の障害者相談員向けに、制度・手帳、福祉サービス、相談窓口など158件の情報を検索できるツールです。年代・目的・手帳の等級で絞り込めるほか、ケースに応じた支援も探せます。</p>
+    <div class="card-footer">
+      <a href="https://anishihara-prog.github.io/nagoya-fukushi-navi/" target="_blank" class="btn btn-green">アプリを使ってみる</a>
+      <div class="qr-area">
+        <div class="qr-box" id="qr2"></div>
+        <div class="qr-label">QRで開く</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 施設検索アプリ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-green">🏢</div>
+      <div class="card-meta">
+        <div class="card-title-row">
+          <span class="card-title">施設検索アプリ</span>
+          <span class="card-badge badge-gray">施設を検索</span>
+        </div>
+      </div>
+    </div>
+    <p class="card-desc">社会資源MAPに掲載されている施設を、名称やサービス内容から検索できるツールです。概要や詳細情報を一覧・検索形式で調べたいときに使えます。</p>
+    <a href="https://shisetsu-search-app-4q6ggmdcvmcax6dg2tcltu.streamlit.app/" class="card-link">「社会資源MAP」の検索用ツール</a>
+    <div class="card-footer">
+      <a href="https://shisetsu-search-app-4q6ggmdcvmcax6dg2tcltu.streamlit.app/" target="_blank" class="btn btn-green">アプリを使ってみる</a>
+      <div class="qr-area">
+        <div class="qr-box" id="qr3"></div>
+        <div class="qr-label">QRで開く</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 社会資源MAP1 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-map">🗺️</div>
+      <div class="card-meta">
+        <div class="card-title-row">
+          <span class="card-title">社会資源MAP1</span>
+          <span class="card-badge badge-map">地図で見る</span>
+        </div>
+      </div>
+    </div>
+    <p class="card-desc">社会資源を実際の地図上にプロットしたGoogleマイマップです。位置関係を見ながら近くの施設を探したいときに使えます。</p>
+    <div class="tags">
+      <span class="tag">相談支援事業所</span>
+      <span class="tag">介護事業所</span>
+      <span class="tag">訪問看護</span>
+      <span class="tag">地域活動支援</span>
+      <span class="tag">就労支援</span>
+      <span class="tag">生活介護</span>
+      <span class="tag">療養介護</span>
+      <span class="tag">共生型</span>
+      <span class="tag">グループホーム</span>
+      <span class="tag">短期入所</span>
+    </div>
+    <div class="card-footer">
+      <a href="https://www.google.com/maps/d/viewer?mid=1CqVdvGls-MzxfSrlwWN7k02oWWEZxxk&ll=35.037022269513294%2C137.06147015&z=10" target="_blank" class="btn btn-dark">地図を見る</a>
+      <div class="qr-area">
+        <div class="qr-box" id="qr4"></div>
+        <div class="qr-label">QRで開く</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 社会資源MAP2 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-map">🗺️</div>
+      <div class="card-meta">
+        <div class="card-title-row">
+          <span class="card-title">社会資源MAP2</span>
+          <span class="card-badge badge-map">地図で見る</span>
+        </div>
+      </div>
+    </div>
+    <p class="card-desc">社会資源を実際の地図上にプロットしたGoogleマイマップです。位置関係を見ながら近くの施設を探したいときに使えます。</p>
+    <div class="tags">
+      <span class="tag">児童</span>
+      <span class="tag">高齢者住宅等</span>
+      <span class="tag">その他</span>
+    </div>
+    <div class="card-footer">
+      <a href="https://www.google.com/maps/d/viewer?mid=1vs3qPBtYaGNm1r7Wsz9_oV5vMFSscsU&ll=35.15535669709091%2C136.939095&z=12" target="_blank" class="btn btn-dark">地図を見る</a>
+      <div class="qr-area">
+        <div class="qr-box" id="qr5"></div>
+        <div class="qr-label">QRで開く</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  var qrData = [
+    { id: 'qr1', url: 'https://nagoyaapp.expo.app/' },
+    { id: 'qr2', url: 'https://anishihara-prog.github.io/nagoya-fukushi-navi/' },
+    { id: 'qr3', url: 'https://shisetsu-search-app-4q6ggmdcvmcax6dg2tcltu.streamlit.app/' },
+    { id: 'qr4', url: 'https://www.google.com/maps/d/viewer?mid=1CqVdvGls-MzxfSrlwWN7k02oWWEZxxk&ll=35.037022269513294,137.06147015&z=10' },
+    { id: 'qr5', url: 'https://www.google.com/maps/d/viewer?mid=1vs3qPBtYaGNm1r7Wsz9_oV5vMFSscsU&ll=35.15535669709091,136.939095&z=12' }
+  ];
+  qrData.forEach(function(item) {
+    new QRCode(document.getElementById(item.id), {
+      text: item.url,
+      width: 120,
+      height: 120,
+      colorDark: '#2d2d2d',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  });
+</script>
+
+<footer>
+  <p>掲載しているアプリの内容は、それぞれの提供元・制作者に帰属します。最新の情報は各アプリよりご確認ください。</p>
+  <p style="margin-top:4px;">2026年9月更新</p>
+</footer>
+
+</body>
+</html>
